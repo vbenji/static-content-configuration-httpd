@@ -1,0 +1,16 @@
+sudo: required
+services:
+- docker
+env:
+  global:
+  - DOCKER_HUB_USER=vbenji
+  - secure: Wa7VDhd8NY34krf9EPIWTK32ASxdTy26cBntwtpzEbqwbeOLNPqxA13mSGonBlkcblSjPVFdkLjI7BPZm1CMQ+Xp5tjGqyGkcs0owihpqs+TXOA2giTNiX7oPtWRDvpwWIOUVybVHbeMoCnKYnWGnNcG4rj2hi6OyZDRSgKtOVUrd+MNVX/NOAcLKc+x7eqB3RfUCv/FV+PkKfXeSfWPGgW61XgHWsBa2gP7pg0dJ4qS2dd66OLLRhnO3gQHia6yH5pQCQnjShb6JdxM2Wc+j+J0GDy70jXoAE7+fDveVwWBSYhcp1wYwm8mDdxKGeJnUqZ7ACYsC2JU8Mj9aCG/BnTZ60yk/GwWKWjSuh22bdPcn/gCOWMt9yjN7kaBKih4coyykmAWVegG0x7KfYB7gLYErKFy3+Jm/RAyHWO8DhqY7SSaJm6dCCjQsfWazSkevSFxvHdyPhn++7ehBdEmVYc2pz4HAogQjdz/Muc3FC8jc5SDbg5JgPOVkCDeZ9HC8/OEeDvCmLFm0sYHOEzl0bpHb7z/nbKlq2JG/eDlm4KzFfIMUukY2kap1jqJ9I5qweHv+cOIxWdZ4XrGInu4/e6awocShLcRcj28MIuvKVq2bDyIriH0eqQ7op2WrcM8BW3uJ0mE8ZWyhTe/Xkh+4PbRfO9UlrkWlzeVp1BovAo=
+script:
+- docker-compose build
+before_deploy:
+- docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+deploy:
+  provider: script
+  script: docker-compose push
+  on:
+    branch: master

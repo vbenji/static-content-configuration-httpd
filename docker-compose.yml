@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+  httpd-static-content-config:
+    build: .
+    image: vbenji/httpd-static-content-config:latest
+    environment: 
+      - HTTPD_ENV_BACK_URL=http://my-back-url.local
+    ports:
+      - "8080:80"
